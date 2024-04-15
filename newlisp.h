@@ -89,7 +89,7 @@
 #endif 
 
 
-#ifdef WINDOWS
+#if defined(_WIN32) || defined(WINDOWS)
 #define OSTYPE "Windows"
 #ifdef NEWLISP64
 #define WIN_64 
@@ -114,7 +114,7 @@
 #include <ffi/ffi.h>
 #endif
 
-#if defined(WINDOWS)  
+#if defined(_WIN32) || defined(WINDOWS)
 #include "win-ffi.h" 
 #endif
 
@@ -164,7 +164,7 @@ This is for 64bit large file support (LFS),
 #define _FILE_OFFSET_BITS 64
 #endif
 
-#ifdef WINDOWS
+#if defined(_WIN32) || defined(WINDOWS)
 /* NOTE:
  * Windows XP [0x0501] end of support on 2014/04/08
  * WIndows Vista [0x0600] support ends on 2017/04/11
@@ -193,7 +193,7 @@ This is for 64bit large file support (LFS),
 #include <wchar.h>
 #define WCSFTIME
 #endif
-#ifdef WINDOWS
+#if defined(_WIN32) || defined(WINDOWS)
 #include <wchar.h>
 #endif
 #ifdef CYGWIN
@@ -202,16 +202,17 @@ This is for 64bit large file support (LFS),
 #endif
 #endif
 
-#ifdef WINDOWS
+#if defined(_WIN32) || defined(WINDOWS)
+#include <windows.h>
 #include <windef.h>
 #include <winbase.h>
 #else
 #include <termios.h>
 #include <sys/wait.h>
-#endif
-
 #include <unistd.h>
 #include <sys/time.h>
+#endif
+
 #include <math.h>
 #include <float.h>
 #include <string.h>
@@ -222,7 +223,7 @@ This is for 64bit large file support (LFS),
 #include <sys/stat.h>
 #include <sys/types.h>
 
-#if defined(LINUX) || defined(WINDOWS) || defined(OS2)
+#if defined(LINUX) || defined(WINDOWS) || defined(OS2) || defined(_WIN32)
 #include <malloc.h>
 #endif
 
@@ -301,7 +302,7 @@ This is for 64bit large file support (LFS),
 
 #endif /* WINDOWS */
 
-#ifndef WINDOWS
+#if !defined(WINDOWS)
 #define LINE_FEED "\n"
 #define LINE_FEED_LEN 1
 #define NANOSLEEP
